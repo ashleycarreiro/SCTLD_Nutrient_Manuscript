@@ -20,12 +20,12 @@ pacman::p_load_gh("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
 ##Uploading all thesis data from Excel
 
 ```{r, load, include = "true"}
-ThesisData <- read.xls("ThesisData/AllNutrientData.xlsx", na.string = "NA", head = T)
-ActiveProportionData <- read.xls("ThesisData/DiseaseStatusProportions.xlsx")
-ExpPhaseModelData <- read.xls("ThesisData/ExpPhaseProportionData.xlsx")
-StatusProportionData <- read.xls("ThesisData/ActiveProportions.xlsx")
-LesionExpPhaseData <- read.xls("ThesisData/LesionExpPhase.xlsx")
-ModelProportionRate <- read.xls("ThesisData/ModelProportionRate.xlsx")
+ThesisData <- read.xls("AllNutrientData.xlsx", na.string = "NA", head = T)
+ActiveProportionData <- read.xls("DiseaseStatusProportions.xlsx")
+ExpPhaseModelData <- read.xls("ExpPhaseProportionData.xlsx")
+StatusProportionData <- read.xls("ActiveProportions.xlsx")
+LesionExpPhaseData <- read.xls("LesionExpPhase.xlsx")
+ModelProportionRate <- read.xls("ModelProportionRate.xlsx")
 
 ```
 
@@ -672,7 +672,7 @@ ActiveProportionBarGraph <- ggplot(ActiveProportionData, aes(Treatment,Proportio
         axis.text.y=element_text(size=14, color="black"))
       
 ActiveProportionBarGraph
-ggsave("Figures/ActiveProportion.BarGraph.JPG", plot = ActiveProportionBarGraph, height = 6, width = 12, units = 'in', dpi = 600)
+ggsave("Figures/SuppFigure3_ActiveProportion.BarGraph.JPG", plot = ActiveProportionBarGraph, height = 6, width = 12, units = 'in', dpi = 600)
 ```
 
 
@@ -686,14 +686,6 @@ StatusData%>%
 identify_outliers(Lesions)
 
 ```
-#Lesion PERMANOVA Treatment*Date
-```{r}
-PermaLesion <- adonis(Lesions~Treatment*Date, data=StatusData, method="euclidian", perm=9999)
-PermaLesion
-```
-
-
-
 #Visualizing the Lesion Data
 ***
 Not really showing anything worth discussing in thesis 
@@ -711,16 +703,6 @@ lsmeans(LesionGLMM, pairwise ~ Treatment*Date, adjust="tukey")
 ```
 ```{r}
 emmip(LesionGLMM, Treatment~Date)
-```
-
-
-```{r}
-Test<-emmeans(LesionGLMM, ~ Treatment*Date)
-test(Test)
-z=as.data.frame(emmeans(LesionGLMM, ~ Treatment*Date))
-x= tidy(emmeans(LesionGLMM,~Treatment*Date))
-ggplot(z,aes(x=Date,y=emmean,ymin=lower.CL,ymax=upper.CL, group=Treatment))+geom_point()+geom_linerange()
-z
 ```
 
 
@@ -865,8 +847,7 @@ Active_Rain.LineGraph <- ggplot(data=StatusProportionTemp, aes(x=Temp, y=StatusP
 ```{r}
 install.packages(microshades)
 library(microshades)
-load(microshades)
-?microshades_palette
+
 ```
 
 ```{r}
@@ -967,9 +948,6 @@ AreaProportionData
 #No significant difference between colonies
 Doesn't seem to be any signficant difference between the colonies 
 
-```{r}
-adonis(Rate~CattleTag*TimePoint, data=ModelRateData, method="euclidian", perm=9999)
-```
 
 ```{r}
 Colony.Kruskal <- ModelRateData %>% kruskal_test(Rate~CattleTag)
@@ -1091,7 +1069,7 @@ AreaProportionStatus.Summary
         legend.key=element_blank())
       
 ActiveTissueChange.LineGraph
-ggsave("Figures/ActiveTissueChange.LineGraph.JPG", plot = ActiveTissueChange.LineGraph, height = 5, width = 9, units = 'in', dpi = 600)
+ggsave("Figures/Figure8_ActiveTissueChange.LineGraph.JPG", plot = ActiveTissueChange.LineGraph, height = 5, width = 9, units = 'in', dpi = 600)
 
 ```
 

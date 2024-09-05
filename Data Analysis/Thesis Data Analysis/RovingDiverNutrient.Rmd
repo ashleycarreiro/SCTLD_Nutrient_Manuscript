@@ -17,7 +17,7 @@ pacman::p_load_gh("pmartinezarbizu/pairwiseAdonis/pairwiseAdonis")
 ```
 
 ```{r, load, include = "true"}
-PD <- read.xls("RovingDiverNutrientData/NutrientRovingDiver.xlsx")
+PD <- read.xls("NutrientRovingDiver.xlsx")
 PD
 PD$Date <- ymd(PD$Date)
 PD$Date <- as.factor(PD$Date)
@@ -245,7 +245,7 @@ SCTLDPrevalence.LineGraph <- ggplot(SCTLDPrevalence.Summary,aes(Date,SCTLDPreval
       
 
 SCTLDPrevalence.LineGraph
-ggsave("Figures/Figure9_SCTLDPrevalence.LineGraph.png", plot = SCTLDPrevalence.LineGraph, height = 5, width = 9, units = 'in', dpi = 600)
+ggsave("Figures/Figure9_SCTLDPrevalence.LineGraph.JPG", plot = SCTLDPrevalence.LineGraph, height = 5, width = 9, units = 'in', dpi = 600)
 ```
 
 
@@ -302,7 +302,7 @@ SCTLDPrevalence.Boxplot <- ggplot(data=TotalPrevalence, aes(Group,SCTLDPrevalenc
         axis.text.y=element_text(size=14, color="black"), 
         legend.position = "none")
 SCTLDPrevalence.Boxplot
-ggsave("Figures/Figure10_SCTLDPrevalence.Boxplot.png", plot = SCTLDPrevalence.Boxplot, height = 5, width = 9, units = 'in', dpi = 600)
+ggsave("Figures/Figure10_SCTLDPrevalence.Boxplot.JPG", plot = SCTLDPrevalence.Boxplot, height = 5, width = 9, units = 'in', dpi = 600)
 ```
 
 #Going to look at disease status to see if there is any difference between active and inactive
